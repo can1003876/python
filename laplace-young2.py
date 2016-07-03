@@ -29,18 +29,14 @@ b = 1.0;
 xn = 100
 yn = 100
 
-# Rectangle
-# u_0 = Expression('''0.7*(1 - x[0]*x[0]/(b*b) - x[1]*x[1]/(a*a) )''', a = a, b = b)
-u_0 = Expression('''0.0''')
-mesh = RectangleMesh(Point(-a/2,-b/2), Point(a/2, b/2), xn, yn)
-
 # Ellipse (figure 1)
 domain = mshr.Ellipse(Point(0.0, 0.0), a, b, xn)
 mesh = mshr.generate_mesh(domain, 50, "cgal")
-# u_0 = Expression('''0.6*sqrt(1 - x[0]*x[0]/(a*a) - x[1]*x[1]/(b*b) + 0.01 )''', a = a, b = b)
-
+# Droplet
+#u_0 = Expression('''0.5*sqrt(1 - x[0]*x[0]/(a*a) - x[1]*x[1]/(b*b) + 0.01 )''', a = a, b = b)
 # Wrinkled disc
-# u_0 = Expression('''0.5*(1 - 0.5*sin(2*x[0]*x[0]/(b*b) + 10*x[1]*x[1]/(a*a)) )''', a = a, b = b)
+u_0 = Expression('''0.5*(1 - 0.5*sin(2*x[0]*x[0]/(b*b)
+                        + 10*x[1]*x[1]/(a*a)) )''', a = a, b = b)
 
 # Triangular pizza mesh (Figure 2/3/4)
 # a = 1.0;
@@ -50,7 +46,8 @@ mesh = mshr.generate_mesh(domain, 50, "cgal")
 #                 mshr.Rectangle(Point(-a, 0.0), Point(a,a))
 # domain = triangle + half_circle
 # mesh = mshr.generate_mesh(domain, xn, "cgal")
-# u_0 = Expression('''0.3*(1 - 0.5*x[0]*x[0]+ 0.5*sin(2*x[1]*x[1]))''', a = a, b = b)
+# u_0 = Expression('''0.3*(1 - 0.5*x[0]*x[0]
+#                    + 0.5*sin(2*x[1]*x[1]))''', a = a, b = b)
 
 V = FunctionSpace(mesh, 'CG', 2)
 u0 = interpolate(u_0, V);

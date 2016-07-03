@@ -29,17 +29,10 @@ b = 1.0;
 xn = 100
 yn = 100
 
-# Rectangle (figure 1)
-#u_0 = Expression('''0.7*(1 - x[0]*x[0]/(b*b) - x[1]*x[1]/(a*a) )''', a = a, b = b)
-#mesh = RectangleMesh(Point(-a/2,-b/2), Point(a/2, b/2), xn, yn)
-
 # Ellipse (figure 2)
 domain = mshr.Ellipse(Point(0.0, 0.0), a, b, xn)
 mesh = mshr.generate_mesh(domain, 50, "cgal")
 u_0 = Expression('''0.7*(x[0]*x[0]/(b*b) - x[1]*x[1]/(a*a) + (x[0]-x[1])*(x[0]-x[1]) )''', a = a, b = b)
-
-# Wrinkled disc
-#u_0 = Expression('''0.4*(1 - 0.5*sin(10*x[0]*x[0]/(b*b) + 10*x[1]*x[1]/(a*a)) )''', a = a, b = b)
 
 V = FunctionSpace(mesh, 'CG', 2)
 u0 = interpolate(u_0, V);
